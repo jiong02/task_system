@@ -1,0 +1,84 @@
+[ 2016-03-23T19:54:47+08:00 ] ::1 /task_system/index.php
+ERR: 模板不存在:./Application/Home/View/Index/header.html
+
+[ 2016-03-23T20:16:42+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:16:42+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.min.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:16:42+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/js/jquery.min.js
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:09+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.min.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:09+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/js/jquery.min.js
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:09+08:00 ] ::1 /task_system/index.php/home/index/Public/css/login_register.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:09+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:32+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.min.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:32+08:00 ] ::1 /task_system/index.php/home/index/Public/css/login_register.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:32+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:50+08:00 ] ::1 /task_system/index.php/home/index/Public/css/index.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:50+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/js/jquery.min.js
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:50+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.min.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:17:50+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:18:25+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/js/jquery.min.js
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:18:25+08:00 ] ::1 /task_system/index.php/home/index/Public/css/index.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:18:25+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:18:25+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.min.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:07+08:00 ] ::1 /task_system/index.php/home/index/Public/css/js/bootstrap-3.3.5/js/jquery.min.js
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:07+08:00 ] ::1 /task_system/index.php/home/index/Public/css/js/bootstrap-3.3.5/css/bootstrap.min.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:07+08:00 ] ::1 /task_system/index.php/home/index/Public/css/js/bootstrap-3.3.5/css/bootstrap.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:07+08:00 ] ::1 /task_system/index.php/home/index/Public/css/css/index.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:17+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:17+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/css/bootstrap.min.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:17+08:00 ] ::1 /task_system/index.php/home/index/Public/css/index.css
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:19:17+08:00 ] ::1 /task_system/index.php/home/index/Public/js/bootstrap-3.3.5/js/jquery.min.js
+ERR: 非法操作:Public
+
+[ 2016-03-23T20:53:39+08:00 ] ::1 /task_system/index.php/Home/Index/task
+ERR: 非法操作:task
+

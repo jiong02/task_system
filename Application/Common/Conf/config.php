@@ -20,6 +20,7 @@ return array(
     'LAYOUT_NAME'           =>  'main', // 当前布局名称 默认为layout
     'URL_CASE_INSENSITIVE'  =>  true,   // 默认false 表示URL区分大小写 true则表示不区分大小写
     'SHOW_PAGE_TRACE'       =>  true,
+    'DB_FIELDS_CACHE'       =>  false,
 
 
     'TMPL_PARSE_STRING'  =>array(     
@@ -34,7 +35,7 @@ return array(
         'AUTH_GROUP'        => 'think_auth_group',
         'AUTH_GROUP_ACCESS' => 'think_auth_group_access',
         'AUTH_RULE'         => 'think_auth_rule',
-        'AUTH_USER'         => 'think_user_center',
+        'AUTH_USER'         => 'think_user',
     ),
 
 

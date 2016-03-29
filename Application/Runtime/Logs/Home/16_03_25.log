@@ -1,0 +1,8 @@
+[ 2016-03-25T20:45:59+08:00 ] ::1 /task_system/index.php/Home/Index/user.html
+ERR: 1054:Unknown column 'register' in 'field list'
+ [ SQL语句 ] : INSERT INTO `think_user` (`register`,`user_name`,`user_password`,`user_password_again`) VALUES ('register','admin','123456','123456')
+
+[ 2016-03-25T21:06:29+08:00 ] ::1 /task_system/index.php/Home/Index/user.html
+ERR: 1054:Unknown column 'user_password_again' in 'field list'
+ [ SQL语句 ] : INSERT INTO `think_user` (`user_name`,`user_password`,`user_password_again`) VALUES ('admin','123456','123456')
+

@@ -9,11 +9,57 @@
     <link rel="stylesheet" href="/task_system/Public/js/bootstrap-3.3.5/css/bootstrap.css">
     <script src='/task_system/Public/js/bootstrap-3.3.5/js/jquery.min.js'></script>
     <style>
-
+    .message{
+        width:350px;
+        height:200px;
+        position:fixed;
+        top:0;
+        bottom:0;
+        margin:auto;
+        left:0;
+        right:0;
+        box-shadow:1px 1px 10px 10px #ccc ;
+        font-family: '微软雅黑';
+        background:#fff;
+        z-index: 9999;
+        display:;
+    }
+    .mess_top{
+        width:98%;
+        border-bottom:2px solid #CCCCCC;
+        height:40px;
+        position: relative;
+        margin:0px auto;
+    }
+    .mess_top h3{
+        position: absolute;
+        font-size: 18px;
+        font-weight: bold;
+        left:10px;
+    }
+    .img_mess_top{
+        position: absolute;
+        right:5px;
+        bottom:11px;
+        cursor: pointer;
+    }
+    .p_mess{
+        line-height: 130px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+    }
     </style>
 </head>
 <body>
+<div class="message">
+    <div class="mess_top">
+        <h3>提示</h3>
+        <img src="/task_system/Public/images/close.png" alt="" class='img_mess_top'>
+    </div>
 
+    <h4 class='p_mess' style='color:red;'>请输入完整的选项请输入完整的选项</h4>
+</div>
      <div class="nav">
         <a href="<?php echo U('Index/index');?>" style='font-weight: bold;margin-left:15px;'>XX系统</a>
         <div class="nav_con">
@@ -23,13 +69,13 @@
                 <li><a href="<?php echo U('Pal/login_info');?>">个人中心</a></li>
             </ul>
         </div>
+        <div style='float:right;margin:5px 50px 0px 0px;cursor:'>
+            <h4 style='font-weight: bold;'><?php echo $_SESSION['user_name']; ?></h4>
+        </div>
     </div>
 
 
     <div class="clean"></div>
-
-
-
 
 </body>
 </html>
@@ -124,4 +170,26 @@
 
     
 </body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    
+</body>
+<script>
+    $('.message').css('display','none');
+    $(".img_mess_top").click(function(){
+        $('.message').hide(800);
+    });
+
+
+
+    
+</script>
 </html>

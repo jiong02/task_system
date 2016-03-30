@@ -17,7 +17,7 @@ class user_centerModel extends Model {
     );
 
     /**
-    *  修改图片
+    *  修改头像
     */
     public function save_pic($pic_number){
         if(!empty($pic_number)){
@@ -36,8 +36,48 @@ class user_centerModel extends Model {
         return false;
     }
 
+    /**
+    *  修改标签
+    */
+    public function save_tag($tags,$user_name){
+        if(!empty($tags) && !empty($user_name)){
+            $tags = trim($tags,',');
+            $tag_data = $this->field('user_tag')->where("user_name = '$user_name'")->find();
+                if(!empty($tag_data['user_tag'])){
+                    $tags = array($tags);
+                    $mysql_tags = explode(',',$tag_data['user_tag']);
+                    $tags_number = count($mysql_tags);
+                    if($tags_number < 7){
+                        $array_tags = array_merge($tags,$mysql_tags);
+                        $string_tags = implode(',',$array_tags);
+                        $tags = array('user_tag'=>$string_tags);
+                        $result = $this->where("user_name = '$user_name'")->save($tags);
+                            if(!empty($result)){
+                                echo 'ok';exit;
+                            }else{
+                                echo '添加标签失败，请刷新页面进行操作';exit;
+                            }
+                    }
+
+                    return '标签已超过6个了';exit;
+                }else{
+                    $tags = $tags.',';
+                    $new_tags = array('user_tag'=>$tags);
+                    $result = $this->where("user_name = '$user_name'")->save($new_tags);
+                        if(!empty($result)){
+                            echo 'ok';exit;
+                        }else{
+                            echo '添加标签失败，请刷新页面进行操作';exit;
+                        }
+                }
+        }else{
+            return false;
+        }
 
 
+
+
+    }
 
 
 

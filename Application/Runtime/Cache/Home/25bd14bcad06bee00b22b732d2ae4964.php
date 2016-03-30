@@ -77,9 +77,6 @@
 
     <div class="clean"></div>
 
-
-
-
 </body>
 </html>
  <link rel="stylesheet" href="/task_system/Public/css/task_all.css"> 

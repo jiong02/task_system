@@ -125,7 +125,7 @@
 </style>
     <div class="content">
         <div class="con_left">
-            <img src="<?php echo ($user_info["user_img"]); ?>" alt="" class='con_img'>
+            <img src="<?php echo ($user_info["user_img"]); ?>" alt="" class='con_img'  id='save_img'>
         </div>
 
         <div class="con_right">
@@ -180,12 +180,11 @@
                       添加
                   </span>
               </div>
-
-              <div class="con_tag">
+<?php if(is_array($user_tags)): foreach($user_tags as $key=>$vo): ?><div class="con_tag">
                   <span>
-                      WEB
+                      <?php echo ($vo); ?>
                   </span>
-              </div>
+              </div><?php endforeach; endif; ?>
 
             </div>
 
@@ -203,7 +202,7 @@
 <div class="login_img">
   <h4>选择头像</h4>
   <div class="img_left">
-    <img src="<?php echo ($user_info["user_img"]); ?>" alt="">
+    <img src="<?php echo ($user_info["user_img"]); ?>" alt="" id='save_img_'>
   </div>
   <div class="img_right">
     <div class="wrap_img" style="background-image: url('/task_system/Public/images/touxiang/touxiang1.png');" data='1'></div>
@@ -222,13 +221,34 @@
         <img src="/task_system/Public/images/close.png" alt="" class='add_img'>
     </div>
 
-    <input type="text" class='tag_input form-control'>
-    <input type="button" class="btn btn-default" style="background-color:#3278B3;color:#fff;width:100px;height:45px;font-size:20px" value="提交" id='tijiao'>
+    <input type="text" class='tag_input form-control' id='tag'>
+    <input type="button" class="btn btn-default" style="background-color:#3278B3;color:#fff;width:100px;height:45px;font-size:20px;position: absolute;bottom:15px;right:15px;" value="提交" id='user_tag'>
 </div>
 
     
 </body>
 <script>
+//添加标签
+$('#user_tag').click(function(){
+  var tag = $('#tag').val();
+    if(tag.length >0){
+      $.post(
+        "<?php echo U('Pal/user_tag');?>",
+        {'user_tag':tag},
+        function(data){
+          if(data == 'ok'){
+            window.location.reload();
+          }else{
+            alert(data);
+            $('.add_tag').hide(800);
+          }
+          
+        }
+      );
+    }
+});
+
+//选择头像
 $('#user_img').click(function(){
   var click_img = $("#click_img").parent().attr('data');
   if(click_img.length > 0){
@@ -236,7 +256,15 @@ $('#user_img').click(function(){
       "<?php echo U('Pal/user_img');?>",
       {'pic_number':click_img},
       function(data){
-        alert(data);
+        if(data == 'ok'){
+        var pic_add = "/task_system/Public//images/touxiang/touxiang"+click_img+".png";
+        $('#save_img').attr('src',pic_add);
+        $('#save_img_').attr('src',pic_add);
+        }else{
+          alert(data);
+
+        }
+
       }
 
     );

@@ -22,6 +22,7 @@
         font-family: '微软雅黑';
         background:#fff;
         z-index: 9999;
+        display:;
     }
     .mess_top{
         width:98%;
@@ -54,7 +55,7 @@
 <div class="message">
     <div class="mess_top">
         <h3>提示</h3>
-        <img src="./close.png" alt="" class='img_mess_top'>
+        <img src="/task_system/Public/images/close.png" alt="" class='img_mess_top'>
     </div>
 
     <h4 class='p_mess' style='color:red;'>请输入完整的选项请输入完整的选项</h4>
@@ -69,15 +70,12 @@
             </ul>
         </div>
         <div style='float:right;margin:5px 50px 0px 0px;cursor:'>
-            <h4 style='font-weight: bold;'>admin</h4>
+            <h4 style='font-weight: bold;'><?php echo $_SESSION['user_name']; ?></h4>
         </div>
     </div>
 
 
     <div class="clean"></div>
-
-
-
 
 </body>
 </html>
@@ -106,54 +104,11 @@
 
             <div class="col-sm-10">
                 <h4>任务分配</h4>
-                <div class="checkbox">
+<?php if(is_array($member_list)): foreach($member_list as $key=>$vo): ?><div class="checkbox">
                     <label>
-                      <input type="checkbox" value='' > Check me out
+                      <input type="checkbox" name='member' value="<?php echo ($vo["id"]); ?>" ><?php echo ($vo["user_name"]); ?>
                     </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
+                </div><?php endforeach; endif; ?>
             </div>
 
             <div class="col-sm-10">
@@ -258,47 +213,7 @@
                     </label>
                 </div>
 
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
 
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
 
             </div>
 
@@ -341,5 +256,27 @@ $(function(){
         pic_number = $(this).attr("data");
     });
 });
+</script>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    
+</body>
+<script>
+    $('.message').css('display','none');
+    $(".img_mess_top").click(function(){
+        $('.message').hide(800);
+    });
+
+
+
+    
 </script>
 </html>

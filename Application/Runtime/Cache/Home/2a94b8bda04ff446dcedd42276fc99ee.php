@@ -82,44 +82,15 @@
  <link rel="stylesheet" href="/task_system/Public/css/index.css"> 
     <div class="center_left">
         <h4>个人项目</h4>
-        <a href="<?php echo U('Task/task');?>">
-            <div class="project" style='background-image: url("/task_system/Public/images/project_a.jpg");'>
-                    <p>进销存系统</p>
+<?php if(is_array($project_list)): foreach($project_list as $key=>$vo): ?><a href="/task_system/index.php/Home/Task/task?project_id=<?php echo ($vo["id"]); ?>">
+            <div class="project" style='background-image: url("<?php echo ($vo["project_img"]); ?>");'>
+                    <p><?php echo ($vo["project_name"]); ?></p>
             </div>
-        </a>
-        
-        <a href="<?php echo U('Task/task');?>">
-            <div class="project" style='background-image: url("/task_system/Public/images/project_b.jpg");'>
-                    <p>进销存系统</p>
-            </div>
-        </a>
-
-        <a href="<?php echo U('Task/task');?>">
-            <div class="project" style='background-image: url("/task_system/Public/images/project_c.jpg");'>
-                    <p>进销存系统</p>
-            </div>
-        </a>
-
-        <a href="<?php echo U('Task/task');?>">
-            <div class="project" style='background-image: url("/task_system/Public/images/project_d.jpg");'>
-                    <p>进销存系统</p>
-            </div>
-        </a>
-
-        <a href="<?php echo U('Task/task');?>">
-            <div class="project" style='background-image: url("/task_system/Public/images/project_e.jpg");'>
-                    <p>进销存系统</p>
-            </div>
-        </a>
-
-        
+        </a><?php endforeach; endif; ?>        
         <div class="project click_pro" style='border:1px solid #DFDFDF;cursor:pointer;'>
                 <img src="/task_system/Public/images/add.png" alt="">
                 <p style='color:#4F4F4F;position:absolute;top:55%;left:32%;font-weight: bold;'>添加项目</p>
         </div>
-        
-        
-
 
     </div>
 
@@ -133,13 +104,6 @@
             <p>创建系统创建系统创建系统创建系统创建系统创建系统</p>
         </div>
 
-        <div class="center_right_task">
-            <input type="checkbox">
-            <div class="type">
-                <span>紧急</span>
-            </div>
-            <p>创建系统创建系统创建系统创建系统创建系统创建系统</p>
-        </div>
     </div>    
 
     <div class="clean"></div>
@@ -150,27 +114,27 @@
         <h4>项目图片</h4>
         
         <div class="imgs">
-            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_a.jpg');" data="1">
+            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_a.jpg');" data="a">
                 <input type="hidden" name='pic' value='1' id='pic'>
             </div>
 
-            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_b.jpg');" data="2">
+            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_b.jpg');" data="b">
                 <input type="hidden" name='pic' value='2'>
             </div>
 
-            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_c.jpg');" data="3">
+            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_c.jpg');" data="c">
                 <input type="hidden" name='pic' value='3'>
             </div>
 
-            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_d.jpg');" data="4">
+            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_d.jpg');" data="d">
                 <input type="hidden" name='pic' value='4'>
             </div>
 
-            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_e.jpg');" data="5">
+            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_e.jpg');" data="e">
                 <input type="hidden" name='pic' value='5'>
             </div>
 
-            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_f.jpg');" data="6">
+            <div class="pro_img" style="background-image: url('/task_system/Public/images/project_f.jpg');" data="f">
                 <input type="hidden" name='pic' value='6'>
             </div>
         </div>
@@ -180,40 +144,26 @@
 
         <h4>项目信息</h4>
 
-         <input type="text" class="form-control" placeholder="项目名称" aria-describedby="sizing-addon2">
+         <input type="text" class="form-control" placeholder="项目名称" aria-describedby="sizing-addon2" id='pro_name'>
 
-         <textarea class="form-control" rows="5" placeholder="项目简介" style='margin:15px 0px'></textarea>
+         <textarea class="form-control" rows="5" placeholder="项目简介" style='margin:15px 0px' id='pro_explain'></textarea>
 
          <h4>成员</h4>
 
          <div class="member">
-             <div class="checkbox">
+        <?php if(is_array($friend_list)): foreach($friend_list as $key=>$vo): ?><div class="checkbox">
               <label>
-                <input type="checkbox" value="">
-                火狐
+                <input type="checkbox" value="<?php echo ($vo["id"]); ?>">
+                <?php echo ($vo["user_name"]); ?>
               </label>
-            </div>
-
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="">
-                火狐
-              </label>
-            </div>
-
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" value="">
-                火狐
-              </label>
-            </div>
+            </div><?php endforeach; endif; ?>
 
          </div>
          
 
         <div class="clean"></div>
 
-        <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:80px;' value='创建项目'>
+        <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:80px;' value='创建项目' id='create_pro'>
 
     </div>
 
@@ -224,6 +174,44 @@
     
 </body>
 <script>
+$('#create_pro').click(function(){
+    var pro_img             = $("#click_img").parent().attr('data');
+    var pro_name            = $('#pro_name').val();
+    var pro_explain         = $('#pro_explain').val();
+    var ids                 = ''; 
+    var pro_member          = $("input:checked").each(function(){
+        ids += $(this).val()+','; 
+    });
+    
+    if(pro_img.length > 0 & pro_name.length > 0 & ids.length >0){
+        $.post(
+            "<?php echo U('Task/create_project');?>",
+            {'project_img':pro_img,
+            'project_name':pro_name,
+            'explain':pro_explain,
+            'member':ids,},
+            function(data){
+                $(".p_mess").html(data);
+                $(".message").show(800);
+                if(data == '添加成功'){
+                    $(".img_mess_top").click(function(){
+                    $('.message').hide(800);
+                    window.location.reload();
+                });
+                }
+            }
+        )
+    }else{
+        $(".p_mess").html('请选择完整所有选项');
+        $(".message").show(800);
+    }
+
+
+
+});
+
+
+
 $(function(){
     $('.click_pro').click(function(){
         $('.new_project').show(1000);

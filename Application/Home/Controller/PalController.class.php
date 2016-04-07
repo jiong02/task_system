@@ -15,13 +15,63 @@ class PalController extends CommonController {
     }
 
     /**
-    *  
+    *  创建项目
+    */
+    public function create_project(){
+        if(IS_POST){
+
+        }
+    }
+
+    /**
+    *  关注功能
+    */
+    public function attention(){
+        $user_id             = I('user_id');
+        if(IS_POST && is_numeric($user_id)){
+            $session_id      = session('user_id');
+            $pal             = new \Home\Model\PalModel();
+            $result          = $pal->attention_friends($user_id,$session_id);
+
+            if(!empty($result) && is_array($result)){
+                $this->ajaxReturn($result);exit;
+            }else{
+                echo $result;exit;
+            }
+
+        }
+    }
+
+    /**
+    *  根据用户ID（user表）确立用户关系
     */
     public function search(){
+        $pal                 = new \Home\Model\PalModel();
+        $user_id             = session('user_id');
+        $friends_list        = $pal->friends_list($user_id);
+
+        if(IS_POST){
+            $search          = I('search');
+            $pal             = new \Home\Model\user_centerModel();
+            $user_data       = $pal->search_user($search);
+
+            if(empty($user_data)){
+                return false;exit;
+            }
+
+            $this->ajaxReturn($user_data,json);
+            
+        }
+        $this->assign('friends_list',$friends_list);
         $this->display();
     }
 
+
+    /**
+    *  根据用户名添加/修改 用户信息
+    */
     public function login_info(){
+        //获取用户信息
         $user_name = session('user_name');
         $pal = D('user_center');
         $user_info = $pal->field('id,groupID',true)->where("user_name='$user_name'")->find();
@@ -29,6 +79,7 @@ class PalController extends CommonController {
         $count = count($new_tags) - 1;
         unset($new_tags[$count]);
 
+        //修改用户信息
         $post_type = I('post_type');
         if(IS_POST && $post_type == 'user_info'){
             $pal_data = $pal->create();
@@ -51,11 +102,15 @@ class PalController extends CommonController {
         $this->display();
     }
 
+    /**
+    *  用户头像
+    */
     public function user_img(){
         if(IS_POST){
             $pal = new \Home\Model\user_centerModel();
             $pic_number = I('pic_number');
             $result = $pal->save_pic($pic_number);
+
                 if(!empty($result)){
                     echo 'ok';exit;
                 }else{
@@ -64,6 +119,9 @@ class PalController extends CommonController {
         }
     }
 
+    /**
+    *  用户标签
+    */
     public function user_tag(){
         $user_tag = $_POST['user_tag'];
         if(IS_POST && is_string($user_tag)){
@@ -71,6 +129,7 @@ class PalController extends CommonController {
             $user_name = $this->session_user_name;
             $pal = new \Home\Model\user_centerModel();
             $result = $pal->save_tag($user_tag,$user_name);
+
                 if($result == 'ok'){
                     echo '标签添加成功';exit;
                 }else{

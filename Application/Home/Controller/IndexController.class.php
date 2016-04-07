@@ -2,10 +2,30 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends CommonController {
+
     public function index(){
         if(empty(session('user_name'))){
             $this->error('请登录后再进行操作',U('Index/user'),2);
         }
+
+        $project             = M('Project');
+        $user_id             = session('user_id');
+        $user_name           = session('user_name');
+        $project_list        = $project->field('id,project_name,project_img')->where("projected_creater = '$user_name'")->order('id asc')->select();
+
+        $pal                 = M('Pal');
+        $friends_id          = $pal->field('attention_user')->where("login_user = $user_id")->select();
+
+        foreach($friends_id as $k=>$v){
+            $friends         .= $v['attention_user'].',';
+        }
+        $friends             = trim($friends,',');
+        $user                = M('User');
+        $friend_list         = $user->field('user_name,id')->where("id in ($friends)")->select();
+// var_dump($project_list);exit;
+
+        $this->assign('friend_list',$friend_list);
+        $this->assign('project_list',$project_list);
         $this->display();
     }
 

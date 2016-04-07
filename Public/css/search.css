@@ -112,10 +112,11 @@
         height:120px;
         border:0px solid #000;
         margin:0px auto;
-        background-image: url('../images/touxiang/touxiang2.png');
+        /*background-image: url('../images/touxiang/touxiang2.png');*/
         background-size: 100%;
         background-position: center;
         background-repeat: no-repeat;
+        display:;
     }
 
     .fri_info{
@@ -191,6 +192,7 @@
         float:left;
         border-radius: 5px;
         cursor:pointer;
+        display:;
     }
 
     #pp{

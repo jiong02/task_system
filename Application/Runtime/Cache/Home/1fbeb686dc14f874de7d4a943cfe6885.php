@@ -83,85 +83,63 @@
     <div class="content">
         <div class="content_search">
             <input type="text" class="form-control" id="exampleInputEmail1" placeholder="请输入你需要查找的好友">
-            <input type="button" class="btn btn-defaultt" style='background-color:#3278B3;color:#fff;width:80px;' value='搜索'>
+            <input type="button" class="btn btn-defaultt" style='background-color:#3278B3;color:#fff;width:80px;' value='搜索' id='search'>
         
         
     
     <div class="content_left">
-        <div class="fri_pic">
+        <div class="fri_pic" >
             
         </div>
         
+        <input type="hidden" name='user_id' value="">
+
         <div class="fri_info">
             <div class="infos_left">
                 <h4>呢称：</h4>
-                <span>奇怪的机器人</span>
+                <span id='user_name'></span>
             </div>
 
             <div class="infos_right">
                 <h4>性别：</h4>
-                <span>男</span>
+                <span id='sex'></span>
             </div>
 
             <div class="infos_left">
                 <h4>邮箱：</h4>
-                <span>1312623396@qq.com</span>
+                <span id='email'></span>
             </div>
 
             <div class="infos_right">
                 <h4>QQ：</h4>
-                <span>1312623396</span>
+                <span id='qq'></span>
             </div>
 
             <div class="clean"></div>
 
             <div class="infos_content">
                 <h4>座右铭：</h4>
-                <span>刹那的光辉</span>
+                <span id='motto'></span>
             </div>
 
             <div class="infos_tag" style='height:75px'>
-                <p>个人标签:</p>
-                <div class="info_tag">
-                    <p id='pp'>HTML</p>
-                </div>
+                <p id='add_tag'>个人标签:</p>
 
-                <div class="info_tag">
-                    <p id='pp'>HTML</p>
-                </div>
-
-                <div class="info_tag">
-                    <p id='pp'>HTML</p>
-                </div>
             </div>
 
-            <input type="button" class="btn btn-default" style='background-color:#FF6600;color:#fff;width:100px;display:block;margin:0px auto;' value='关注'>
+            <input type="button" class="btn btn-default" style='background-color:#FF6600;color:#fff;width:100px;display:block;margin:0px auto;' value='关注' id='attention'>
 
         </div>
 
     </div>
 </div>
     <div class="content_right">
-        <div class="con_left">
-            <p class='left_p'>奇怪的机器人</p>
+    <?php if(is_array($friends_list)): foreach($friends_list as $key=>$vo): ?><div class="con_left">
+            <p class='left_p'><?php echo ($vo["user_name"]); ?></p>
             <div class="fri_tag">
                 <p>已关注</p>
             </div>
-        </div>
-
-        <div class="con_left">
-            <p class='left_p'>奇怪的机器人</p>
-            <div class="fri_tag">
-                <p>已关注</p>
-            </div>
-        </div>
-
-        <div class="con_left">
-            <p class='left_p'>奇怪的机器人</p>
-            <div class="fri_tag">
-                <p>已关注</p>
-            </div>
-        </div>
+        </div><?php endforeach; endif; ?>
     </div>
 
     </div>
@@ -170,6 +148,80 @@
 
     
 </body>
+<script>
+$('#attention').click(function(){
+    var user_id = $('input[name="user_id"]').val();
+    if(user_id.length > 0){
+        $.post(
+            "<?php echo U('Pal/attention');?>",
+            {'user_id':user_id},
+            function(data){
+                if(data.user_name){
+                    $('.content_right').append('<div class="con_left"><p class="left_p">'+data.user_name+'</p><div class="fri_tag"><p>已关注</p></div></div>');
+                }else{
+                    $(".p_mess").html(data);
+                    $(".message").show(800);    
+                }
+            }
+        );
+    }
+});
+
+
+
+    $("#search").click(function(){
+        var search = $('#exampleInputEmail1').val();
+
+        if(search.length > 0){
+            $.post(
+                "<?php echo U('Pal/search');?>",
+                {'search':search},
+                function(data){
+                    console.log(data);
+                    if(data.sex){
+                        $('.fri_pic').css('display','block');
+                        $('input[name="user_id"]').val(data.id);
+                        $('#user_name').html(data.user_name);
+                        $('#sex').html(data.sex);
+                        $('#email').html(data.email);
+                        $('#qq').html(data.qq);
+                        $('#motto').html(data.motto);
+                        $('.fri_pic').css('background',"url("+"'"+data.user_img+"'"+")");
+
+                        var test = data.user_tag;
+                        var array_test = test.split(",");
+                        var arr_length = array_test.length - 1;
+                        var new_arr    = array_test.splice(0,arr_length);
+                            for(var i=0;i<arr_length;i++){
+                                $("#add_tag").after('<div class="info_tag"><p id="pp">'+new_arr[i]+'</p></div>');
+                            }
+                    }else{
+                        $('input[name="user_id"]').val(data.id);
+                        $('#user_name').html(data.user_name);
+                        $('#sex').html(' ');
+                        $('#email').html(' ');
+                        $('#qq').html(' ');
+                        $('#motto').html(' ');
+                        $('.fri_pic').css('display','none');
+                        $(".info_tag").css('display','none');
+                    }
+
+                    if(data == false){
+                        $(".p_mess").html('用户不存在');
+                        $(".message").show(800);
+                    }
+                }
+            );
+        }
+
+
+
+
+    });
+
+
+
+</script>
 </html>
 <!DOCTYPE html>
 <html>

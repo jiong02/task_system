@@ -16,6 +16,35 @@ class user_centerModel extends Model {
         array('motto','require','请填写座右铭',1),
     );
 
+
+    /**
+    *  搜索用户
+    */
+    public function search_user($user_name){
+        if(!empty($user_name) && is_string($user_name)){
+            $user_info             = $this->field('user_name,sex,email,qq,motto,user_tag,user_img')->where("user_name = '$user_name'")->find();
+            $user                  = M('User');
+            $user_id               = $user->field('id')->where("user_name = '$user_name'")->find();
+            if(!empty($user_info)){
+                $user_info             = array_merge($user_id,$user_info);
+                return $user_info;exit;
+            }
+
+            if(!empty($user_id)){
+                $user_name             = array('user_name'=>$user_name);
+                $user_info             = array_merge($user_id,$user_name);
+                return $user_info;exit;
+            }
+
+            return false;exit;
+        }else{
+            return false;exit;
+        }    
+
+
+
+    }
+
     /**
     *  修改头像
     */

@@ -134,6 +134,7 @@
     </div>
 </div>
     <div class="content_right">
+    <h4 style='font-weight: bold;color:#777777'>好友列表</h4>
     <?php if(is_array($friends_list)): foreach($friends_list as $key=>$vo): ?><div class="con_left">
             <p class='left_p'><?php echo ($vo["user_name"]); ?></p>
             <div class="fri_tag">

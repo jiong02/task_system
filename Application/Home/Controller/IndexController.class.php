@@ -42,6 +42,7 @@ class IndexController extends CommonController {
                         unset($user_data['user_password_again']);
                         unset($user_data['register']);
                         $result = $user->add($user_data);
+                        
                         if(!empty($result)){
                             echo 'ok,注册成功，请前往登录';
                             exit;

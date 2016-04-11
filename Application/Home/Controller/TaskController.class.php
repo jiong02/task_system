@@ -20,8 +20,8 @@ class TaskController extends CommonController {
         $member_id           = trim($member_id['member'],",");
         $member              = $user->field('id,user_name')->where("id in ($member_id)")->select();
 
-        $task_list           = $task->field('status',true)->where("project_id = '$project_id' and status = 1")->select();
-
+        $task_list           = $task->where("project_id = '$project_id' and status = 1")->select();
+// var_dump($task_list);
         $this->assign('task_list',$task_list);
         $this->assign('pro_id',$project_id);
         $this->assign('member_list',$member);
@@ -82,8 +82,47 @@ class TaskController extends CommonController {
 
     }
 
+    public function delete_task(){
+        $task_id             = I('task_id');
+        if(!empty($task_id) & is_numeric($task_id)){
+            $task            = new \Home\Model\TaskModel();
+            $status          = array('status'=>0);
+            $result          = $task->where("id = '$task_id'")->save($status);
+
+            if(!empty($result)){
+                echo '删除成功';exit;
+            }else{
+                echo '删除失败，请刷新页面再进行操作';exit;
+            }
+        }
+    }
+
     public function task_all(){
+        $task                 = new \Home\Model\TaskModel();
+        $user_name            = session('user_name');
+        $unfinish             = $task->field('do_user,status',true)->where("do_user = '$user_name' and status = 1")->select();
+        $finish               = $task->field('do_user,status',true)->where("do_user = '$user_name' and status = 2")->select();
+        
+        $unfinish               = $this->find_project($unfinish);
+        $finish                 = $this->find_project($finish);
+
+
+        $this->assign('unfinish',$unfinish);
+        $this->assign('finish',$finish);
         $this->display();
+    }
+
+    public function find_project($task){
+        $project              = new \Home\Model\ProjectModel();
+        foreach($task as $k=>$v){
+            $pro_arr[]             = $project->field('id,project_name')->where("id = $v[project_id]")->find();
+        }
+
+        for($i=0;$i<count($task);$i++){
+                $new[$i] = array_merge($task[$i],$pro_arr[$i]);
+        }
+
+        return $new;exit;
     }
 
     /**

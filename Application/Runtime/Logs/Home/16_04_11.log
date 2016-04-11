@@ -1,0 +1,21 @@
+[ 2016-04-11T11:56:22+08:00 ] ::1 /task_system/index.php/Home/Index/user.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001496s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002222s ]
+NOTIC: [8] Undefined index: register F:\wamp\www\task_system\Application\Home\Controller\IndexController.class.php 第 35 行.
+SQL: SELECT `id`,`user_name`,`user_password` FROM `think_user` WHERE ( user_name = 'admin' ) LIMIT 1   [ RunTime:0.1043s ]
+
+[ 2016-04-11T14:17:57+08:00 ] ::1 /task_system/index.php/Home/Task/delete_task.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001467s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002432s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0144s ]
+SQL: UPDATE `think_task` SET `status`='0' WHERE ( id = '19' ) [ RunTime:0.0044s ]
+
+[ 2016-04-11T14:19:13+08:00 ] ::1 /task_system/index.php/Home/Task/delete_task.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001087s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001758s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0146s ]
+SQL: UPDATE `think_task` SET `status`='0' WHERE ( id = '19' ) [ RunTime:0.0006s ]
+

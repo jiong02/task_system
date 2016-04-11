@@ -128,9 +128,11 @@
         </div>
 
         <div class="con_right">
-<?php if(is_array($task_list)): foreach($task_list as $key=>$vo): ?><div class="wrap">
+<?php if(is_array($task_list)): foreach($task_list as $key=>$vo): ?><div class="wrap" data="<?php echo ($vo["id"]); ?>">
                 <div class="wrap_top">
-                    <input type="checkbox" id="get_task_id" value="<?php echo ($vo["id"]); ?>" style='float:left'>
+                <?php if($vo['status'] == 2): ?><input type="checkbox" style='float:left;width:15px;height:15px;' checked>
+                <?php else: ?>
+                    <input type="checkbox" style='float:left;width:15px;height:15px;'><?php endif; ?>
                     <?php if($vo['grade'] == '紧急'): ?><div class="wrap_tag" style='background:#FF3636'>
                             <p id='get_grade'><?php echo ($vo["grade"]); ?></p>
                         </div>
@@ -162,7 +164,7 @@
         <div class="edit">
             <h3>编辑任务</h3>
 
-            <input type="hidden" value="" id='edit_task_id'>
+            <input type="hidden" value="" id='edit_task_id' data=''>
 
             <div class="col-sm-10">
                 <h4>任务等级</h4>
@@ -192,6 +194,8 @@
 
             <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:90px;height:40px;font-size:20px;margin:20px 0px 0px 20px' value='提交' id='edit'>
 
+            <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:105px;height:40px;font-size:20px;margin:20px 0px 0px 20px' value='删除任务' id='delete_task'>
+
         </div>
 
 
@@ -200,6 +204,38 @@
 
 </body>
 <script>
+$('#delete_task').click(function(){
+    var task_id             = $('#edit_task_id').val();
+
+    if(task_id.length > 0 ){
+        $.post(
+            "<?php echo U('Task/delete_task');?>",
+            {
+             'task_id':task_id,
+            },
+            function(data){
+                $(".p_mess").html(data);
+                $(".message").show(800);
+
+                if(data == '删除成功'){
+                    $(".img_mess_top").click(function(){
+                    $('.message').hide(800);
+
+                    $('.wrap[data='+task_id+']').remove();
+                }
+            )
+        }
+      }
+    );
+    }else{
+        $(".p_mess").html('请刷新页面再操作');
+        $(".message").show(800);
+    }
+
+});
+
+
+
 $('#create_task').click(function(){
     var project_id        = $('#project_id').val();
     var grade             = $('#grade').val();
@@ -209,7 +245,6 @@ $('#create_task').click(function(){
         users += $(this).val()+','; 
     });
     var deadline          = $('#deadline').val();
-    // console.log(project_id+'+'+grade+'+'+task_content+'+'+users+'+'+deadline);
 
     if(project_id.length > 0 & grade.length > 0 & task_content.length >0 & users.length > 0 & deadline.length > 0){
         $.post(

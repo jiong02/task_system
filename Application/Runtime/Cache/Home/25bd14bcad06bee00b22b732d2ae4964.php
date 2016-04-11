@@ -83,59 +83,42 @@
     <div class="content">
         <div class="content_left">
             <strong style='display:block;'>未完成</strong>
-            <div class="task_info">
+<?php if(is_array($unfinish)): foreach($unfinish as $key=>$vo): ?><div class="task_info" data="<?php echo ($vo["id"]); ?>" id="unfinish">
                 <div class="info_top">
                     <input type="checkbox" class='check'>
                     <div class="info_grade">
-                        <p class='grade_p'>紧急</p>
+                        <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
                     </div>
-                    <p class='name_p'>奇怪的机器人</p>
+                    <p class='name_p'><?php echo ($vo["give_user"]); ?></p>
                     <div class="date">
-                        <p>2016-03-18</p>
+                        <p><?php echo ($vo["deadline"]); ?></p>
                     </div>
                 </div>
                 <div class="sys_name">
-                    <p>&nbsp;进销存系统&nbsp;</p>
+                    <p>&nbsp;<?php echo ($vo["project_name"]); ?>&nbsp;</p>
                 </div>
-                <p class='ac_info'>添加销售功能</p>
-            </div>
-            
-            <div class="task_info">
-                <div class="info_top">
-                    <input type="checkbox" class='check'>
-                    <div class="info_grade">
-                        <p class='grade_p'>紧急</p>
-                    </div>
-                    <p class='name_p'>奇怪的机器人</p>
-                    <div class="date">
-                        <p>2016-03-18</p>
-                    </div>
-                </div>
-                <div class="sys_name">
-                    <p>&nbsp;进销存系统&nbsp;</p>
-                </div>
-                <p class='ac_info'>添加销售功能</p>
-            </div>
+                <p class='ac_info'><?php echo ($vo["task_content"]); ?></p>
+            </div><?php endforeach; endif; ?>
         </div>
 
         <div class="content_right">
             <strong style='display:block;'>已完成</strong>
-            <div class="task_info">
+<?php if(is_array($finish)): foreach($finish as $key=>$vo): ?><div class="task_info" data="<?php echo ($vo["id"]); ?>" id="finish">
                 <div class="info_top">
-                    <input type="checkbox" class='check'>
+                    <input type="checkbox" class='check' checked>
                     <div class="info_grade">
-                        <p class='grade_p'>紧急</p>
+                        <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
                     </div>
-                    <p class='name_p'>奇怪的机器人</p>
+                    <p class='name_p'><?php echo ($vo["give_user"]); ?></p>
                     <div class="date">
-                        <p>2016-03-18</p>
+                        <p><?php echo ($vo["deadline"]); ?></p>
                     </div>
                 </div>
                 <div class="sys_name">
-                    <p>&nbsp;进销存系统&nbsp;</p>
+                    <p>&nbsp;<?php echo ($vo["project_name"]); ?>&nbsp;</p>
                 </div>
-                <p class='ac_info'>添加销售功能</p>
-            </div>
+                <p class='ac_info'><?php echo ($vo["task_content"]); ?></p>
+            </div><?php endforeach; endif; ?>
         </div>
     </div>
 
@@ -144,88 +127,12 @@
 
 
         <div class="edit">
-            <h3>编辑任务</h3>
+            <h3>查看任务</h3>
 
-            <div class="col-sm-10">
-                <h4>任务等级</h4>
-            </div>
-
-            <div class="col-sm-10">
-                <select name="" id="" class=" btn btn-default dropdown-toggle">
-                    <option value="1">紧急</option>
-                    <option value="2">一般</option>
-                    <option value="3">正常</option>
-                </select>
-            </div>
-
-
-            <div class="col-sm-10">
+            <div class="col-sm-10" style='margin-bottom: 50px;'>
                 <h4>任务内容</h4>
                 <textarea class="form-control" rows="10" style='height:200px'></textarea>
             </div>
-
-            <div class="col-sm-10">
-                <h4>任务分配</h4>
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-                <div class="checkbox">
-                    <label>
-                      <input type="checkbox" value='' > Check me out
-                    </label>
-                </div>
-
-            </div>
-
-            <div class="col-sm-10">
-                <h4>截止时间</h4>
-                <input type='date' class="form-control" id='datetimepicker4'/> 
-
-
-            </div>
-
-            <div class="clean"></div>
-
-            <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:90px;height:40px;font-size:20px;margin:20px 0px 0px 20px' value='提交'>
 
         </div>
 

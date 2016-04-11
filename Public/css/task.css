@@ -183,3 +183,9 @@
         left:0;
         right:0;
     }
+
+    .delete_task{
+        float:left;
+        cursor:pointer;
+        margin-top:3px;    
+    }

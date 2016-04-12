@@ -9,15 +9,21 @@ class PalModel extends Model {
     */
     public function friends_list($user_id){
         $friends_id          = $this->field('attention_user')->where("login_user = '$user_id'")->select();
-        $friends             = '';
-        foreach($friends_id as $k=>$v){
-            $friends        .=  $v['attention_user'].',';     
+
+        if(!empty($friends_id)){
+            $friends             = '';
+            foreach($friends_id as $k=>$v){
+                $friends        .=  $v['attention_user'].',';     
+            }
+
+            $friends             = trim($friends,',');
+            $user_mod            = M('user');
+            $friends_list        = $user_mod->field('user_name')->where("id in ($friends)")->select();
+            return $friends_list;exit;
         }
 
-        $friends             = trim($friends,',');
-        $user_mod            = M('user');
-        $friends_list        = $user_mod->field('user_name')->where("id in ($friends)")->select();
-        return $friends_list;exit;
+        return false;exit;
+
     }
 
     /**

@@ -70,16 +70,41 @@
             </ul>
         </div>
         <div style='float:right;margin:5px 50px 0px 0px;cursor:'>
-            <h4 style='font-weight: bold;'><?php echo $_SESSION['user_name']; ?></h4>
+            <h4 style='font-weight: bold;float:left;margin-right: 10px;;cursor:pointer'><?php echo $_SESSION['user_name']; ?></h4>
+            <h4 style='font-weight: bold;float:left;cursor:pointer' id='logout'>退出</h4>
         </div>
 
-        
+
     </div>
 
 
     <div class="clean"></div>
 
 </body>
+<script>
+$('#logout').click(function(){
+    $.post(
+        "<?php echo U('Index/logout');?>",
+        {
+
+        },
+        function(data){
+            $(".p_mess").html(data);
+            $(".message").show(800); 
+
+            $(".img_mess_top").click(function(){
+                    $('.message').hide(800);
+                    window.location.reload();
+            });
+        }
+
+
+    );
+});
+
+
+
+</script>
 </html>
  <link rel="stylesheet" href="/task_system/Public/css/task.css"> 
     <div class="content">

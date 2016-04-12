@@ -16,6 +16,19 @@ class user_centerModel extends Model {
         array('motto','require','请填写座右铭',1),
     );
 
+    /**
+    * 判断用户是否存在
+    */
+    public function find_user($user_name){
+        $user                      = $this->field('user_name')->where("user_name = '$user_name'")->find();
+
+        if(!empty($user)){
+            return 'in';exit;
+        }else{
+            return 'out';exit;
+        }
+    }
+
 
     /**
     *  搜索用户

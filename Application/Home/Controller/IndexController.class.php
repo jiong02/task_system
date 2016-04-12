@@ -2,7 +2,9 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends CommonController {
-
+    /**
+    * 首页
+    */
     public function index(){
         if(empty(session('user_name'))){
             $this->error('请登录后再进行操作',U('Index/user'),2);
@@ -16,29 +18,41 @@ class IndexController extends CommonController {
         $pal                 = M('Pal');
         $friends_id          = $pal->field('attention_user')->where("login_user = $user_id")->select();
 
-        foreach($friends_id as $k=>$v){
-            $friends         .= $v['attention_user'].',';
-        }
-        $friends             = trim($friends,',');
-        $user                = M('User');
-        $friend_list         = $user->field('user_name,id')->where("id in ($friends)")->select();
+        if(!empty($friends_id)){
+            foreach($friends_id as $k=>$v){
+                $friends         .= $v['attention_user'].',';
+            }
+                $friends             = trim($friends,',');
+                $user                = M('User');
+                $friend_list         = $user->field('user_name,id')->where("id in ($friends)")->select();
 
-        $task                = new \Home\Model\TaskModel();
-        $task_list           = $task->field('id,grade,task_content')->where("do_user = '$user_name' and status =1")->limit(10)->select();
+                $task                = new \Home\Model\TaskModel();
+                $task_list           = $task->field('id,grade,task_content')->where("do_user = '$user_name' and status =1")->limit(10)->select();
+
+                $this->assign('friend_list',$friend_list);
+        }
+
+
 
 
         $this->assign('task_list',$task_list);
-        $this->assign('friend_list',$friend_list);
+        
         $this->assign('project_list',$project_list);
         $this->display();
     }
 
+    /**
+    * 退出
+    */
     public function logout(){
         session(null);
 
         echo '已退出，请重新登录';exit;
     }
 
+    /**
+    * 注册/登录
+    */
     public function user(){
         if(IS_POST){
             $user = D('user');
@@ -70,7 +84,8 @@ class IndexController extends CommonController {
 
                         if($Verify->check($verify_code)){
                             $check = $user->do_login($user_name,$password);
-                            if($check[0] === '验证合法'){
+                            // var_dump($check);exit;
+                            if($check[0] == '验证合法'){
                                 session('user_id',$check['id']);
                                 session('user_name',$check['user_name']);
                                 echo 'ok';
@@ -91,6 +106,9 @@ class IndexController extends CommonController {
         $this->display();
     }
 
+    /**
+    * 验证码功能
+    */
     public function img_verify(){
         $config = array('imageW'=>'100','imageH'=>'30','fontSize'=>'15','length'=>'4','useNoise'=>false,'useCurve'=>false,'useImgBg'=>false);
         $Verify = new \Think\Verify($config);

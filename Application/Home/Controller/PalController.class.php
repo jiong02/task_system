@@ -15,15 +15,6 @@ class PalController extends CommonController {
     }
 
     /**
-    *  创建项目
-    */
-    public function create_project(){
-        if(IS_POST){
-
-        }
-    }
-
-    /**
     *  关注功能
     */
     public function attention(){
@@ -72,11 +63,11 @@ class PalController extends CommonController {
     */
     public function login_info(){
         //获取用户信息
-        $user_name = session('user_name');
-        $pal = D('user_center');
-        $user_info = $pal->field('id,groupID',true)->where("user_name='$user_name'")->find();
-        $new_tags = explode(',',$user_info['user_tag']);
-        $count = count($new_tags) - 1;
+        $user_name             = session('user_name');
+        $pal                   = new \Home\Model\user_centerModel();
+        $user_info             = $pal->field('id,groupID',true)->where("user_name='$user_name'")->find();
+        $new_tags              = explode(',',$user_info['user_tag']);
+        $count                 = count($new_tags) - 1;
         unset($new_tags[$count]);
 
         //修改用户信息
@@ -84,15 +75,22 @@ class PalController extends CommonController {
         if(IS_POST && $post_type == 'user_info'){
             $pal_data = $pal->create();
 
-            if(!empty($pal_data)){
-                unset($pal_data['user_name']);
-                $mysql_data = $pal->where('user_name='."'".$user_name."'")->save();
 
-                    if(!empty($mysql_data)){
-                        echo '信息修改成功';exit;
-                    }else{
-                        echo '信息修改失败，请刷新重新填写';exit;
-                    }
+            if(!empty($pal_data)){
+                $result     = $pal->find_user($user_name);
+
+                if($result == 'in'){
+                    unset($pal_data['user_name']);
+                    $mysql_data = $pal->where("user_name = '$user_name'")->save($pal_data);
+                }else{
+                    $mysql_data = $pal->add();
+                }
+
+                if(!empty($mysql_data)){
+                    echo '信息修改成功';exit;
+                }else{
+                    echo '信息修改失败，请刷新重新填写';exit;
+                }
             }else{
                 echo $pal->getError();exit;
             }
@@ -126,7 +124,7 @@ class PalController extends CommonController {
         $user_tag = $_POST['user_tag'];
         if(IS_POST && is_string($user_tag)){
             $user_tag = strtoupper($user_tag);
-            $user_name = $this->session_user_name;
+            $user_name = session('user_name');
             $pal = new \Home\Model\user_centerModel();
             $result = $pal->save_tag($user_tag,$user_name);
 

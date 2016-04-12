@@ -10,6 +10,9 @@ class TaskController extends CommonController {
         parent::_initialize();
     }
 
+    /**
+    * 查看分配的任务
+    */
     public function task(){
         $project             = new \Home\Model\ProjectModel();
         $user                = new \Home\Model\UserModel();
@@ -21,13 +24,16 @@ class TaskController extends CommonController {
         $member              = $user->field('id,user_name')->where("id in ($member_id)")->select();
 
         $task_list           = $task->where("project_id = '$project_id' and status = 1")->select();
-// var_dump($task_list);
+
         $this->assign('task_list',$task_list);
         $this->assign('pro_id',$project_id);
         $this->assign('member_list',$member);
         $this->display();
     }
 
+    /**
+    * 创建任务
+    */
     public function create_task(){
         if(IS_POST){
             $task                    = new \Home\Model\TaskModel();   
@@ -55,6 +61,9 @@ class TaskController extends CommonController {
         }
     }
 
+    /**
+    * 修改任务
+    */
     public function edit_task(){
         if(IS_POST){
             $task             = new \Home\Model\TaskModel();
@@ -82,6 +91,9 @@ class TaskController extends CommonController {
 
     }
 
+    /**
+    * 修改任务状态
+    */
     public function delete_task(){
         $task_id             = I('task_id');
         if(!empty($task_id) & is_numeric($task_id)){
@@ -97,6 +109,9 @@ class TaskController extends CommonController {
         }
     }
 
+    /**
+    * 查看需完成的任务
+    */
     public function task_all(){
         $task                 = new \Home\Model\TaskModel();
         $user_name            = session('user_name');
@@ -114,6 +129,9 @@ class TaskController extends CommonController {
         $this->display();
     }
 
+    /**
+    * 未完成任务
+    */
     public function unfinish_task(){
         $task_id             = I('task_id');
         $status              = array('status'=>1);
@@ -130,6 +148,9 @@ class TaskController extends CommonController {
 
     }
 
+    /**
+    * 完成任务
+    */
     public function finish_task(){
         $task_id             = I('task_id');
         $status              = array('status'=>2);
@@ -145,6 +166,9 @@ class TaskController extends CommonController {
 
     }
 
+    /**
+    * 根据项目ID，查找项目名称
+    */
     public function find_project($task){
         $project              = new \Home\Model\ProjectModel();
         foreach($task as $k=>$v){

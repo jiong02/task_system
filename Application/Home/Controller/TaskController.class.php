@@ -100,22 +100,55 @@ class TaskController extends CommonController {
     public function task_all(){
         $task                 = new \Home\Model\TaskModel();
         $user_name            = session('user_name');
-        $unfinish             = $task->field('do_user,status',true)->where("do_user = '$user_name' and status = 1")->select();
-        $finish               = $task->field('do_user,status',true)->where("do_user = '$user_name' and status = 2")->select();
+        $unfinish             = $task->where("do_user = '$user_name' and status = 1")->select();
+        $finish               = $task->where("do_user = '$user_name' and status = 2")->select();
         
         $unfinish               = $this->find_project($unfinish);
         $finish                 = $this->find_project($finish);
 
-
+        $this->assign('one','紧急');
+        $this->assign('two','一般');
+        $this->assign('three','正常');
         $this->assign('unfinish',$unfinish);
         $this->assign('finish',$finish);
         $this->display();
     }
 
+    public function unfinish_task(){
+        $task_id             = I('task_id');
+        $status              = array('status'=>1);
+        $task                = new \Home\Model\TaskModel();
+
+        $result              = $task->where("id = $task_id")->save($status);
+
+        if(!empty($result)){
+            echo '完成任务';exit;
+        }else{
+            echo '失败，请刷新页面';exit;
+        }
+
+
+    }
+
+    public function finish_task(){
+        $task_id             = I('task_id');
+        $status              = array('status'=>2);
+        $task                = new \Home\Model\TaskModel();
+
+        $result              = $task->where("id = $task_id")->save($status);
+
+        if(!empty($result)){
+            echo '完成任务';exit;
+        }else{
+            echo '失败，请刷新页面';exit;
+        }
+
+    }
+
     public function find_project($task){
         $project              = new \Home\Model\ProjectModel();
         foreach($task as $k=>$v){
-            $pro_arr[]             = $project->field('id,project_name')->where("id = $v[project_id]")->find();
+            $pro_arr[]             = $project->field('project_name')->where("id = $v[project_id]")->find();
         }
 
         for($i=0;$i<count($task);$i++){

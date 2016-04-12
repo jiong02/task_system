@@ -22,11 +22,21 @@ class IndexController extends CommonController {
         $friends             = trim($friends,',');
         $user                = M('User');
         $friend_list         = $user->field('user_name,id')->where("id in ($friends)")->select();
-// var_dump($project_list);exit;
 
+        $task                = new \Home\Model\TaskModel();
+        $task_list           = $task->field('id,grade,task_content')->where("do_user = '$user_name' and status =1")->limit(10)->select();
+
+
+        $this->assign('task_list',$task_list);
         $this->assign('friend_list',$friend_list);
         $this->assign('project_list',$project_list);
         $this->display();
+    }
+
+    public function logout(){
+        session(null);
+
+        echo '已退出，请重新登录';exit;
     }
 
     public function user(){

@@ -72,6 +72,8 @@
         <div style='float:right;margin:5px 50px 0px 0px;cursor:'>
             <h4 style='font-weight: bold;'><?php echo $_SESSION['user_name']; ?></h4>
         </div>
+
+        
     </div>
 
 
@@ -192,7 +194,7 @@
 
             <div class="clean"></div>
 
-            <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:90px;height:40px;font-size:20px;margin:20px 0px 0px 20px' value='提交' id='edit'>
+            <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:90px;height:40px;font-size:20px;margin:20px 0px 0px 20px' value='修改' id='edit'>
 
             <input type="button" class="btn btn-default" style='background-color:#3278B3;color:#fff;width:105px;height:40px;font-size:20px;margin:20px 0px 0px 20px' value='删除任务' id='delete_task'>
 

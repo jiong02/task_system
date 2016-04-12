@@ -72,6 +72,8 @@
         <div style='float:right;margin:5px 50px 0px 0px;cursor:'>
             <h4 style='font-weight: bold;'><?php echo $_SESSION['user_name']; ?></h4>
         </div>
+
+        
     </div>
 
 
@@ -82,13 +84,24 @@
  <link rel="stylesheet" href="/task_system/Public/css/task_all.css"> 
     <div class="content">
         <div class="content_left">
-            <strong style='display:block;'>未完成</strong>
-<?php if(is_array($unfinish)): foreach($unfinish as $key=>$vo): ?><div class="task_info" data="<?php echo ($vo["id"]); ?>" id="unfinish">
+            <strong style='display:block;' id="unfinish">未完成</strong>
+<?php if(is_array($unfinish)): foreach($unfinish as $key=>$vo): ?><div class='wrap_' data="<?php echo ($vo["id"]); ?>">
+            <div class="task_info" data="<?php echo ($vo["id"]); ?>" style='width:300px;height:60px;'>
                 <div class="info_top">
-                    <input type="checkbox" class='check'>
-                    <div class="info_grade">
-                        <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
+                    <input type="checkbox" class='check' data="<?php echo ($vo["id"]); ?>" tag='unfinish'>
+
+                <?php if($vo['grade'] == '紧急'): ?><div class="info_grade" style='background:#FF3636'>
+                        <p class='grade_p'>紧急</p>
                     </div>
+                <?php elseif($vo['grade'] == '一般'): ?>
+                    <div class="info_grade" style='background:#FFAF60'>
+                        <p class='grade_p'>一般</p>
+                    </div>
+                <?php else: ?>
+                    <div class="info_grade" style='background:#5BBD72'>
+                        <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
+                    </div><?php endif; ?>
+
                     <p class='name_p'><?php echo ($vo["give_user"]); ?></p>
                     <div class="date">
                         <p><?php echo ($vo["deadline"]); ?></p>
@@ -98,17 +111,27 @@
                     <p>&nbsp;<?php echo ($vo["project_name"]); ?>&nbsp;</p>
                 </div>
                 <p class='ac_info'><?php echo ($vo["task_content"]); ?></p>
-            </div><?php endforeach; endif; ?>
+            </div>
+        </div><?php endforeach; endif; ?>
         </div>
 
         <div class="content_right">
-            <strong style='display:block;'>已完成</strong>
-<?php if(is_array($finish)): foreach($finish as $key=>$vo): ?><div class="task_info" data="<?php echo ($vo["id"]); ?>" id="finish">
+            <strong style='display:block;' id="finish">已完成</strong>
+<?php if(is_array($finish)): foreach($finish as $key=>$vo): ?><div class='wrap_' data="<?php echo ($vo["id"]); ?>">
+            <div class="task_info" data="<?php echo ($vo["id"]); ?>" style='width:300px;height:60px;'>
                 <div class="info_top">
-                    <input type="checkbox" class='check' checked>
-                    <div class="info_grade">
+                    <input type="checkbox" class='check' checked data="<?php echo ($vo["id"]); ?>" tag='finish'>
+                <?php if($vo['grade'] == '紧急'): ?><div class="info_grade" style='background:#FF3636'>
                         <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
                     </div>
+                <elseif condition="$vo['grade'] == '一般'">
+                    <div class="info_grade" style='background:#FFAF60'>
+                        <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
+                    </div>
+                <?php else: ?>
+                    <div class="info_grade" style='background:#5BBD72'>
+                        <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
+                    </div><?php endif; ?>
                     <p class='name_p'><?php echo ($vo["give_user"]); ?></p>
                     <div class="date">
                         <p><?php echo ($vo["deadline"]); ?></p>
@@ -118,7 +141,8 @@
                     <p>&nbsp;<?php echo ($vo["project_name"]); ?>&nbsp;</p>
                 </div>
                 <p class='ac_info'><?php echo ($vo["task_content"]); ?></p>
-            </div><?php endforeach; endif; ?>
+            </div>
+        </div><?php endforeach; endif; ?>
         </div>
     </div>
 
@@ -131,7 +155,7 @@
 
             <div class="col-sm-10" style='margin-bottom: 50px;'>
                 <h4>任务内容</h4>
-                <textarea class="form-control" rows="10" style='height:200px'></textarea>
+                <textarea class="form-control" rows="10" style='height:200px' id='task_text'></textarea>
             </div>
 
         </div>
@@ -141,8 +165,83 @@
     
 </body>
 <script>
+    $('.check').click(function(){
+        var tag             = $(this).attr('tag');
+        var task_id         = $(this).attr('data');
+
+        if(tag == 'unfinish' & task_id.length >0 ){
+            $.post(
+                "<?php echo U('Task/finish_task');?>",
+                {
+                 'task_id':task_id,
+                },
+                function(data){
+                    if(data == '完成任务'){
+                        window.location.reload();
+                    }
+
+                    $(".p_mess").html(data);
+                    $(".message").show(800);
+                }
+
+            );
+        }
+
+        if(tag == 'finish' & task_id.length >0 ){
+             $.post(
+                "<?php echo U('Task/unfinish_task');?>",
+                {
+                 'task_id':task_id,
+                },
+                function(data){
+                    if(data == '完成任务'){
+                        window.location.reload();
+                    }
+
+                    $(".p_mess").html(data);
+                    $(".message").show(800);
+                }
+
+            );   
+        }
+
+    });
+
+
+
+
+
+/*$(function(){
+    $('.check').click(function(){
+        var tag             = $(this).attr('tag');
+        var task_id         = $(this).attr('data');
+
+        if(tag == 'unfinish'){
+            var task_info             = $(".wrap_[data='"+task_id+"']").html();
+            console.log(task_info);
+            $(".wrap_[data='"+task_id+"']").remove();
+            $('#finish').after(task_info);
+            $('.content_right:input').attr('checked','checked');
+            
+        }
+
+        if(tag == 'finish'){
+
+        }
+
+    });
+
+
+
+});*/
+
+
+
 $(function(){
     $('.ac_info').click(function(){
+        var task_content             = $(this).html();
+        $('#task_text').html(task_content);
+
         $('.edit').show(1000);
         $('.content_mark').show('slow');
     });

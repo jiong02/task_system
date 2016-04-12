@@ -17,14 +17,25 @@
 
     <div class="center_right">
         <h4>未完成的任务</h4>
-        <div class="center_right_task">
-            <input type="checkbox">
-            <div class="type">
+<foreach name='task_list' item='vo'>
+        <div class="center_right_task" data="{$vo.id}">
+            <input type="checkbox" style='width:15px;height:15px' data="{$vo.id}" class='do_finish'>
+        <if condition="$vo['grade'] == '紧急'">
+            <div class="type" style='background:#FF3636'>
                 <span>紧急</span>
             </div>
-            <p>创建系统创建系统创建系统创建系统创建系统创建系统</p>
+        <elseif condition="$vo['grade'] == '一般'" />
+            <div class="type" style='background:#FFAF60'>
+                <span>一般</span>
+            </div>
+        <else />
+            <div class="type" style='background:#5BBD72'>
+                <span>{$vo.grade}</span>
+            </div>
+        </if>
+            <p style='font-weight: bold;'>{$vo.task_content}</p>
         </div>
-
+</foreach>
     </div>    
 
     <div class="clean"></div>
@@ -97,6 +108,29 @@
     
 </body>
 <script>
+$(".do_finish").click(function(){
+    var task_id             = $(this).attr('data');
+    
+    if(task_id.length > 0){
+        $.post(
+            "{:U('Task/finish_task')}",
+            {
+             'task_id':task_id,
+            },
+            function(data){
+                if(data == '完成任务'){
+                    $('.center_right_task[data='+task_id+']').remove();
+                }
+            }
+
+
+        );
+    }else{
+      $(".p_mess").html('请刷新页面，再选择');
+      $(".message").show(800);  
+    }
+});
+
 $('#create_pro').click(function(){
     var pro_img             = $("#click_img").parent().attr('data');
     var pro_name            = $('#pro_name').val();

@@ -70,14 +70,41 @@
             </ul>
         </div>
         <div style='float:right;margin:5px 50px 0px 0px;cursor:'>
-            <h4 style='font-weight: bold;'><?php echo $_SESSION['user_name']; ?></h4>
+            <h4 style='font-weight: bold;float:left;margin-right: 10px;;cursor:pointer'><?php echo $_SESSION['user_name']; ?></h4>
+            <h4 style='font-weight: bold;float:left;cursor:pointer' id='logout'>退出</h4>
         </div>
+
+
     </div>
 
 
     <div class="clean"></div>
 
 </body>
+<script>
+$('#logout').click(function(){
+    $.post(
+        "<?php echo U('Index/logout');?>",
+        {
+
+        },
+        function(data){
+            $(".p_mess").html(data);
+            $(".message").show(800); 
+
+            $(".img_mess_top").click(function(){
+                    $('.message').hide(800);
+                    window.location.reload();
+            });
+        }
+
+
+    );
+});
+
+
+
+</script>
 </html>
  <link rel="stylesheet" href="/task_system/Public/css/index.css"> 
     <div class="center_left">
@@ -96,14 +123,21 @@
 
     <div class="center_right">
         <h4>未完成的任务</h4>
-        <div class="center_right_task">
-            <input type="checkbox">
-            <div class="type">
+<?php if(is_array($task_list)): foreach($task_list as $key=>$vo): ?><div class="center_right_task" data="<?php echo ($vo["id"]); ?>">
+            <input type="checkbox" style='width:15px;height:15px' data="<?php echo ($vo["id"]); ?>" class='do_finish'>
+        <?php if($vo['grade'] == '紧急'): ?><div class="type" style='background:#FF3636'>
                 <span>紧急</span>
             </div>
-            <p>创建系统创建系统创建系统创建系统创建系统创建系统</p>
-        </div>
-
+        <?php elseif($vo['grade'] == '一般'): ?>
+            <div class="type" style='background:#FFAF60'>
+                <span>一般</span>
+            </div>
+        <?php else: ?>
+            <div class="type" style='background:#5BBD72'>
+                <span><?php echo ($vo["grade"]); ?></span>
+            </div><?php endif; ?>
+            <p style='font-weight: bold;'><?php echo ($vo["task_content"]); ?></p>
+        </div><?php endforeach; endif; ?>
     </div>    
 
     <div class="clean"></div>
@@ -174,6 +208,29 @@
     
 </body>
 <script>
+$(".do_finish").click(function(){
+    var task_id             = $(this).attr('data');
+    
+    if(task_id.length > 0){
+        $.post(
+            "<?php echo U('Task/finish_task');?>",
+            {
+             'task_id':task_id,
+            },
+            function(data){
+                if(data == '完成任务'){
+                    $('.center_right_task[data='+task_id+']').remove();
+                }
+            }
+
+
+        );
+    }else{
+      $(".p_mess").html('请刷新页面，再选择');
+      $(".message").show(800);  
+    }
+});
+
 $('#create_pro').click(function(){
     var pro_img             = $("#click_img").parent().attr('data');
     var pro_name            = $('#pro_name').val();

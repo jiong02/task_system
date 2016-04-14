@@ -149,7 +149,7 @@ $('#logout').click(function(){
                 <?php if($vo['grade'] == '紧急'): ?><div class="info_grade" style='background:#FF3636'>
                         <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
                     </div>
-                <elseif condition="$vo['grade'] == '一般'">
+                <?php elseif($vo['grade'] == '一般'): ?>
                     <div class="info_grade" style='background:#FFAF60'>
                         <p class='grade_p'><?php echo ($vo["grade"]); ?></p>
                     </div>

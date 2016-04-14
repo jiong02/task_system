@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2016-04-07 03:39:17
+-- Generation Time: 2016-04-14 08:11:22
 -- 服务器版本： 5.6.17
 -- PHP Version: 5.5.12
 
@@ -39,9 +39,9 @@ CREATE TABLE IF NOT EXISTS `think_auth_group` (
 --
 
 INSERT INTO `think_auth_group` (`id`, `title`, `status`, `rules`) VALUES
-(1, '任务创建者', 1, '1,2,3,4,5,6'),
-(2, '任务参与者', 1, '1,2,4,5,6'),
-(3, '测试', 1, '1,3,4,5,6');
+(1, '', 1, '1,2,3,4,5,6'),
+(2, '', 1, '1,2,4,5,6'),
+(3, '', 1, '1,3,4,5,6');
 
 -- --------------------------------------------------------
 
@@ -85,12 +85,12 @@ CREATE TABLE IF NOT EXISTS `think_auth_rule` (
 --
 
 INSERT INTO `think_auth_rule` (`id`, `name`, `title`, `status`, `condition`) VALUES
-(1, 'Home/Index/login', '登录页面', 1, ''),
-(2, 'Home/Index/index', '首页', 1, ''),
-(3, 'Home/Task/task', '新建任务', 1, ''),
-(4, 'Home/Task/task_all', '查看所有任务', 1, ''),
-(5, 'Home/Pal/search', '搜索好友', 1, ''),
-(6, 'Home/Pal/login_info', '个人中心', 1, '');
+(1, 'Home/Index/login', '', 1, ''),
+(2, 'Home/Index/index', '', 1, ''),
+(3, 'Home/Task/task', '', 1, ''),
+(4, 'Home/Task/task_all', '', 1, ''),
+(5, 'Home/Pal/search', '', 1, ''),
+(6, 'Home/Pal/login_info', '', 1, '');
 
 -- --------------------------------------------------------
 
@@ -100,10 +100,10 @@ INSERT INTO `think_auth_rule` (`id`, `name`, `title`, `status`, `condition`) VAL
 
 CREATE TABLE IF NOT EXISTS `think_pal` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `login_user` int(11) NOT NULL COMMENT '登陆人',
-  `attention_user` int(11) NOT NULL COMMENT '关注的好友',
+  `login_user` int(11) NOT NULL COMMENT '??½??',
+  `attention_user` int(11) NOT NULL COMMENT '??ע?ĺ???',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='好友列表' AUTO_INCREMENT=13 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='?????б AUTO_INCREMENT=17 ;
 
 --
 -- 转存表中的数据 `think_pal`
@@ -112,7 +112,11 @@ CREATE TABLE IF NOT EXISTS `think_pal` (
 INSERT INTO `think_pal` (`id`, `login_user`, `attention_user`) VALUES
 (1, 1, 2),
 (12, 1, 3),
-(11, 1, 4);
+(11, 1, 4),
+(13, 5, 1),
+(14, 4, 1),
+(15, 4, 3),
+(16, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -123,12 +127,22 @@ INSERT INTO `think_pal` (`id`, `login_user`, `attention_user`) VALUES
 CREATE TABLE IF NOT EXISTS `think_project` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `projected_creater` varchar(20) NOT NULL,
-  `project_name` varchar(20) NOT NULL COMMENT '项目名称',
-  `member` varchar(20) NOT NULL COMMENT '成员',
-  `project_img` varchar(32) NOT NULL COMMENT '项目图片',
-  `explain` varchar(35) NOT NULL COMMENT '说明',
+  `project_name` varchar(20) NOT NULL COMMENT '??Ŀ????',
+  `member` varchar(20) NOT NULL COMMENT '??Ա',
+  `project_img` varchar(50) NOT NULL,
+  `explain` varchar(35) NOT NULL COMMENT '˵??',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='项目' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='??Ŀ' AUTO_INCREMENT=5 ;
+
+--
+-- 转存表中的数据 `think_project`
+--
+
+INSERT INTO `think_project` (`id`, `projected_creater`, `project_name`, `member`, `project_img`, `explain`) VALUES
+(1, 'admin', 'erp', '2,3,4,', '/task_system/Public/images/proje', 'erp进销存系统'),
+(2, 'task', 'task', '1,5,3,', '/task_system/Public/images/proje', 'task系统'),
+(3, 'task', 'aaaa', '1,5,3,', '/task_system/Public/images/proje', 'aaaaaaaaaa'),
+(4, 'task', 'bbbbbbbbb', '1,5,3,', '/task_system/Public/images/project_e.jpg', 'aaaaaaa');
 
 -- --------------------------------------------------------
 
@@ -138,15 +152,15 @@ CREATE TABLE IF NOT EXISTS `think_project` (
 
 CREATE TABLE IF NOT EXISTS `think_task` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `projected_id` varchar(32) NOT NULL COMMENT '所属项目',
-  `grade` char(3) NOT NULL COMMENT '等级',
-  `give_user` char(5) NOT NULL COMMENT '任务分配者',
-  `do_user` char(5) NOT NULL COMMENT '完成任务者',
-  `task_content` varchar(32) NOT NULL COMMENT '任务内容',
-  `deadline` varchar(32) NOT NULL COMMENT '截止时间',
-  `status` char(5) NOT NULL COMMENT '状态',
+  `projected_id` varchar(32) NOT NULL COMMENT '??????Ŀ',
+  `grade` char(3) NOT NULL COMMENT '?ȼ?',
+  `give_user` char(5) NOT NULL COMMENT '??????????',
+  `do_user` char(5) NOT NULL COMMENT '??????????',
+  `task_content` varchar(32) NOT NULL COMMENT '????????',
+  `deadline` varchar(32) NOT NULL COMMENT '??ֹʱ??',
+  `status` char(5) NOT NULL COMMENT '״̬',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='任务' AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='????' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -161,7 +175,7 @@ CREATE TABLE IF NOT EXISTS `think_user` (
   `groupID` int(11) NOT NULL,
   `status` char(5) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='用户表' AUTO_INCREMENT=5 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='?û?? AUTO_INCREMENT=6 ;
 
 --
 -- 转存表中的数据 `think_user`
@@ -169,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `think_user` (
 
 INSERT INTO `think_user` (`id`, `user_name`, `user_password`, `groupID`, `status`) VALUES
 (1, 'admin', '123456', 2, '1'),
-(2, '奇怪的机器人', '123456', 0, '1'),
+(5, '奇怪的机器人', '123456', 0, '1'),
 (3, 'You_goods', '123456', 0, '1'),
 (4, 'task', '123456', 0, '1');
 
@@ -181,25 +195,27 @@ INSERT INTO `think_user` (`id`, `user_name`, `user_password`, `groupID`, `status
 
 CREATE TABLE IF NOT EXISTS `think_user_center` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-  `user_name` varchar(32) NOT NULL COMMENT '用户名称',
-  `sex` char(3) NOT NULL COMMENT '性别',
-  `email` varchar(32) NOT NULL COMMENT '邮箱',
+  `user_name` varchar(32) NOT NULL COMMENT '?û?????',
+  `sex` char(3) NOT NULL COMMENT '?Ա?',
+  `email` varchar(32) NOT NULL COMMENT '????',
   `qq` varchar(32) NOT NULL COMMENT 'QQ',
-  `city` varchar(10) NOT NULL COMMENT '地区',
-  `work` varchar(10) NOT NULL COMMENT '工作情况',
-  `motto` varchar(32) NOT NULL COMMENT '座右铭',
-  `user_tag` varchar(32) NOT NULL COMMENT '个人标签',
-  `user_img` varchar(60) NOT NULL DEFAULT '/task_system/Public//images/touxiang/touxiang4.png' COMMENT '头像',
+  `city` varchar(10) NOT NULL COMMENT '????',
+  `work` varchar(10) NOT NULL COMMENT '????????',
+  `motto` varchar(32) NOT NULL COMMENT '??????',
+  `user_tag` varchar(32) NOT NULL COMMENT '???˱?ǩ',
+  `user_img` varchar(60) NOT NULL DEFAULT '/task_system/Public//images/touxiang/touxiang4.png' COMMENT 'ͷ??',
   `groupID` char(5) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='个人中心' AUTO_INCREMENT=2 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT='????????' AUTO_INCREMENT=5 ;
 
 --
 -- 转存表中的数据 `think_user_center`
 --
 
 INSERT INTO `think_user_center` (`id`, `user_name`, `sex`, `email`, `qq`, `city`, `work`, `motto`, `user_tag`, `user_img`, `groupID`) VALUES
-(1, 'admin', '男', '1312623396@qq.com', '1312623396', '广州', '在职', '这个人很懒', 'LAMP,CSS,HTML,PHP,MYSQL,WEB,', '/task_system/Public//images/touxiang/touxiang4.png', '');
+(1, 'admin', '男', '1312623396@qq.com', '1312623396', '广州', '在职', '没有啊', 'LAMP,CSS,HTML,PHP,MYSQL,WEB,', '/task_system/Public//images/touxiang/touxiang4.png', ''),
+(2, '奇怪的机器人', '女', '1312623396@qq.com', '779771340', '关注', '离职', '没有啊', 'HTML,PHP,', '/task_system/Public//images/touxiang/touxiang4.png', ''),
+(4, 'task', '女', '1312623396@qq.com', '1312623396', '佛山', '离职', 'nononono', '666,PHP ,', '/task_system/Public//images/touxiang/touxiang4.png', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

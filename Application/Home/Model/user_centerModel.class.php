@@ -10,7 +10,7 @@ class user_centerModel extends Model {
         array('user_name','require','请刷新页面或用户名不存在',1),
         array('sex','require','请填写性别',1),
         array('email','email','请填写Email地址',1),
-        array('qq','10','请输入你的QQ号',1,'length'),
+        array('qq','number','请输入你的QQ号',1),
         array('work','require','请填写工作情况',1),
         array('city','require','请填写地区信息',1),
         array('motto','require','请填写座右铭',1),
@@ -97,7 +97,7 @@ class user_centerModel extends Model {
                             if(!empty($result)){
                                 echo 'ok';exit;
                             }else{
-                                echo '添加标签失败，请刷新页面进行操作';exit;
+                                echo '添加标签失败，请提交用户信息后再操作';exit;
                             }
                     }
 

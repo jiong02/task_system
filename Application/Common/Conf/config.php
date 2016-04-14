@@ -10,7 +10,8 @@ return array(
     'DB_PORT'               =>  '3306',        // 端口
     'DB_PREFIX'             =>  'think_',    // 数据库表前缀
     'ERROR_MESSAGE'         =>  '页面错误！请稍后再试～',//错误显示信息,非调试模式有效
-    'ERROR_PAGE'            =>  '', // 错误定向页面
+    'ERROR_PAGE'            =>  '/Public/error.html', // 错误定向页面
+    'TMPL_EXCEPTION_FILE'   =>  APP_PATH.'/Public/error.html',
     'SHOW_ERROR_MSG'        =>  true,    // 显示错误信息
     'LOG_RECORD'            =>  false,   // 默认不记录日志
     'LOG_EXCEPTION_RECORD'  =>  true,    // 是否记录异常信息日志
@@ -20,7 +21,8 @@ return array(
     'LAYOUT_NAME'           =>  'main', // 当前布局名称 默认为layout
     'URL_CASE_INSENSITIVE'  =>  true,   // 默认false 表示URL区分大小写 true则表示不区分大小写
     'SHOW_PAGE_TRACE'       =>  true,
-    'DB_FIELDS_CACHE'       =>  false,
+    'DB_FIELDS_CACHE'       =>  false,    //数据库文件缓存
+
 
 
     'TMPL_PARSE_STRING'  =>array(     
@@ -30,7 +32,7 @@ return array(
     ),
 
     'AUTH_CONFIG' => array(
-        'AUTH_ON'           => true,
+        'AUTH_ON'           => false,
         'AUTH_TYPE'         => 1,//1为时时认证，2为登录认证
         'AUTH_GROUP'        => 'think_auth_group',
         'AUTH_GROUP_ACCESS' => 'think_auth_group_access',

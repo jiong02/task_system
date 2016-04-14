@@ -194,7 +194,7 @@ class TaskController extends CommonController {
             if(is_string($pro_data)){
                 echo $pro_data;exit;
             }
-
+// var_dump($_POST);
             $img_code            = I('project_img');
             $pro_img             = "/task_system/Public/images/project_$img_code.jpg";
             $explain             = I('explain')?I('explain'):'';

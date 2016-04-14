@@ -115,4 +115,8 @@ class IndexController extends CommonController {
         $Verify->entry();
     }
 
+    public function html_error(){
+        $this->display();
+    }
+
 }

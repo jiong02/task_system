@@ -9,10 +9,10 @@ return array(
     'DB_PWD'                =>  '',          // 密码
     'DB_PORT'               =>  '3306',        // 端口
     'DB_PREFIX'             =>  'think_',    // 数据库表前缀
-    'ERROR_MESSAGE'         =>  '页面错误！请稍后再试～',//错误显示信息,非调试模式有效
-    'ERROR_PAGE'            =>  '/task_system/Public/error.html', // 错误定向页面
-    'TMPL_EXCEPTION_FILE'   =>  '/task_system/Public/error.html',
-    'SHOW_ERROR_MSG'        =>  false,    // 显示错误信息
+    //'ERROR_MESSAGE'         =>  '页面错误！请稍后再试～',//错误显示信息,非调试模式有效
+    //'ERROR_PAGE'            =>  '/task_system/Public/error.html', // 错误定向页面
+    //'TMPL_EXCEPTION_FILE'   =>  '/task_system/Public/error.html',
+    //'SHOW_ERROR_MSG'        =>  false,    // 显示错误信息
     'LOG_RECORD'            =>  false,   // 默认不记录日志
     'LOG_EXCEPTION_RECORD'  =>  true,    // 是否记录异常信息日志
     'TMPL_DETECT_THEME'     =>  false,       // 自动侦测模板主题
@@ -22,7 +22,7 @@ return array(
     'URL_CASE_INSENSITIVE'  =>  true,   // 默认false 表示URL区分大小写 true则表示不区分大小写
     'SHOW_PAGE_TRACE'       =>  true,
     'DB_FIELDS_CACHE'       =>  false,    //数据库文件缓存
-    'EMPTY_PATH'            =>  '/index.php', /*访问不存在的模块时跳转的地址*/
+
 
 
 

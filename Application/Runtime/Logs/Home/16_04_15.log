@@ -1,0 +1,8 @@
+[ 2016-04-15T11:26:32+08:00 ] ::1 /task_system/index.php/Home/Index/user.html
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000786s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001527s ]
+NOTIC: [8] Undefined index: register E:\wamp\www\task_system\Application\Home\Controller\IndexController.class.php 第 59 行.
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead E:\wamp\www\task_system\ThinkPHP\Library\Think\Db\Driver\Mysql.class.php 第 52 行.
+SQL: SELECT `id`,`user_name`,`user_password` FROM `think_user` WHERE ( user_name = 'admin' ) LIMIT 1   [ RunTime:0.010742s ]
+

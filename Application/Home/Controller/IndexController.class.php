@@ -6,7 +6,8 @@ class IndexController extends CommonController {
     * 首页
     */
     public function index(){
-        if(empty(session('user_name'))){
+        $user_name           = session('user_name');
+        if(empty($user_name)){
             $this->error('请登录后再进行操作',U('Index/user'),2);
         }
 
